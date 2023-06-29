@@ -42,14 +42,14 @@ jobs:
         run: npm run build
 
       - name: Build Docker image
-        run: docker build -t $IMAGE_NAME .
+        run: docker build -t ${{ env.IMAGE_NAME }} .
 
       - name: Push Docker image
-        run: docker push $IMAGE_NAME
+        run: docker push ${{ env.IMAGE_NAME }}
 
       - name: Deploy Docker image
         run:
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME \
+          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image ${{ env.IMAGE_NAME }} \
           --platform managed \
           --region europe-west1 \
           --allow-unauthenticated \

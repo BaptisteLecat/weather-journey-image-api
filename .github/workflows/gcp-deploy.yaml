@@ -49,7 +49,7 @@ jobs:
 
       - name: Deploy Docker image
         run:
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image ${{ env.IMAGE_NAME }} \
+          gcloud run deploy "${{ secrets.GCP_PROJECT_ID }} --image ${{ env.IMAGE_NAME }}" \
           --platform managed \
           --region europe-west1 \
           --allow-unauthenticated \

@@ -13,7 +13,7 @@ jobs:
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         env:
-          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+          IMAGE_NAME: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:0.0.1
         steps:
 
         - name: Login
@@ -28,6 +28,15 @@ jobs:
 
         - name: Checkout repository
           uses: actions/checkout@v2
+
+        - name: Use NPM to install dependencies
+          uses: actions/setup-node@v1
+          with:
+            node-version: '14.x'
+        - run: npm install
+
+        - name: Build application
+          run: npm run build
 
         - name: Build Docker image
           run: docker build . -t $IMAGE_NAME

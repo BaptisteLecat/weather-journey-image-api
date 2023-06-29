@@ -42,14 +42,14 @@ jobs:
         run: npm run build
 
       - name: Build Docker image
-        run: docker build -f Dockerfile -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:0.0.1 .
+        run: docker build -f Dockerfile -t europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1 .
 
       - name: Push Docker image
-        run: docker push "${{ env.IMAGE_NAME }}"
+        run: docker push europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1
 
       - name: Deploy Docker image
         run:
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image ${{ env.IMAGE_NAME }} \
+          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1 \
           --platform managed \
           --region europe-west1 \
           --allow-unauthenticated \

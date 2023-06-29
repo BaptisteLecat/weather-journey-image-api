@@ -2,59 +2,61 @@ name: Docker
 
 on:
   push:
-    branches: [ prod ]
+    branches: [prod]
   pull_request:
-    branches: [ prod ]
+    branches: [prod]
 
 jobs:
+  deploy:
+    permissions:
+      contents: "read"
+      id-token: "write"
+    environment: prod
+    name: Setup Gcloud Account
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+    steps:
+      - name: Login
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
+          service_account: ${{ secrets.WIP_EMAIL }}
 
-    deploy:
-        environment: prod
-        name: Setup Gcloud Account
-        runs-on: ubuntu-latest
-        env:
-          IMAGE_NAME: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
-        steps:
+      - name: Configure gcloud
+        uses: google-github-actions/setup-gcloud@v0.2.1
 
-        - name: Login
-          uses: google-github-actions/auth@v1
-          with:
-            workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
-            service_account: ${{ secrets.WIP_EMAIL }}
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
 
-        - name: Configure gcloud
-          uses: google-github-actions/setup-gcloud@v0.2.1
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-        - name: Configure Docker
-          run: gcloud auth configure-docker --quiet
+      - name: Use NPM to install dependencies
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - run: npm install
 
-        - name: Checkout repository
-          uses: actions/checkout@v2
+      - name: Build application
+        run: npm run build
 
-        - name: Use NPM to install dependencies
-          uses: actions/setup-node@v1
-          with:
-            node-version: '14.x'
-        - run: npm install
+      - name: Build Docker image
+        run: docker build -t $IMAGE_NAME .
 
-        - name: Build application
-          run: npm run build
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME
 
-        - name: Build Docker image
-          run: docker build -t $IMAGE_NAME .
-
-        - name: Push Docker image
-          run: docker push $IMAGE_NAME
-
-        - name: Deploy Docker image
-          run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME \
-              --platform managed \
-              --region europe-west1 \
-              --allow-unauthenticated \
-              --min-instances 1 \
-              --max-instances 2 \
-              --memory 512Mi \
-              --cpu 1 \
-              --port 3000 \
-              --set-env-vars "" \
-              --service-account=${{ secrets.CLOUD_RUN_EXECUTOR_SERVICE_ACCOUNT }}
+      - name: Deploy Docker image
+        run:
+          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME \
+          --platform managed \
+          --region europe-west1 \
+          --allow-unauthenticated \
+          --min-instances 1 \
+          --max-instances 2 \
+          --memory 512Mi \
+          --cpu 1 \
+          --port 3000 \
+          --set-env-vars "" \
+          --service-account=${{ secrets.CLOUD_RUN_EXECUTOR_SERVICE_ACCOUNT }}

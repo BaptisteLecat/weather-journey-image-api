@@ -17,6 +17,9 @@ jobs:
     env:
       IMAGE_NAME: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
       - name: Login
         uses: google-github-actions/auth@v1
         with:
@@ -29,8 +32,6 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Use NPM to install dependencies
         uses: actions/setup-node@v1

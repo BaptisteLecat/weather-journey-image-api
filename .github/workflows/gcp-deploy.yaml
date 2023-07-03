@@ -29,10 +29,12 @@ jobs:
 
       - name: Configure gcloud
         uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          export_default_credentials: true
 
       - name: Configure Docker
-        run: gcloud auth configure-docker --quiet
-
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
 
       - name: Use NPM to install dependencies
         uses: actions/setup-node@v1

@@ -51,4 +51,4 @@ jobs:
         run: docker push europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1
 
       - name: Deploy Docker image
-        run: gcloud run deploy weather-generation-api --image europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1 --platform managed --region europe-west1 --allow-unauthenticated --min-instances 1 --max-instances 2 \--memory 512Mi --cpu 1 --port 3000 --set-env-vars "OPENAI_API_KEY=df" --service-account=${{ secrets.CLOUD_RUN_EXECUTOR_SERVICE_ACCOUNT }}
+        run: gcloud run deploy weather-generation-api --image europe-west1-docker.pkg.dev/weatherapp-journey/weather-generation-api/generation-api:0.0.1 --platform managed --region europe-west1 --allow-unauthenticated --min-instances 1 --max-instances 2 \--memory 512Mi --cpu 1 --port 3000 --set-env-vars "OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}},DISCORD_SERVER_ID=${{secrets.DISCORD_SERVER_ID}},DISCORD_CHANNEL_ID=${{secrets.DISCORD_CHANNEL_ID}},DISCORD_SALAI_TOKEN=${{secrets.DISCORD_SALAI_TOKEN}},API_KEY=${{secrets.API_KEY}}" --service-account=${{ secrets.CLOUD_RUN_EXECUTOR_SERVICE_ACCOUNT }}

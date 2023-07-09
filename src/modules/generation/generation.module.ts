@@ -8,10 +8,12 @@ import { FirebaseProvider } from 'src/providers/firebase.provider';
 import { GenerationConverter } from './converters/generation.converter';
 import { UsersService } from '../users/users.service';
 import { UserConverter } from '../users/converters/user.converter';
+import { LocationsService } from '../locations/locations.service';
+import { LocationConverter } from '../locations/converters/location.converter';
 
 @Module({
     controllers: [GenerationController],
-    providers: [PromptGeneratorService, GenerationsService, FirebaseProvider, GenerationConverter, UsersService, UserConverter],
+    providers: [PromptGeneratorService, GenerationsService, FirebaseProvider, GenerationConverter, UsersService, UserConverter, LocationConverter, LocationsService],
 })
 export class GenerationModule{
     /*configure(consumer: MiddlewareConsumer) {

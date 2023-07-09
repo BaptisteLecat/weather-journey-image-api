@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { FirebaseAuthService } from './services/firebase.auth.service';
 import { LoggingModule } from './modules/logging/logging.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { LocationsModule } from './modules/locations/locations.module';
 
 
 
@@ -22,7 +23,9 @@ imports: [
   GenerationModule,
     UsersModule,
     AuthModule,
-    LoggingModule],
+    LoggingModule,
+    LocationsModule,
+  ],
   controllers: [],
   providers: [PromptGeneratorService, FirebaseProvider, AuthService, FirebaseAuthService],
 })

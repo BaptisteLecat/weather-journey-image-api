@@ -1,0 +1,14 @@
+import { Module } from '@nestjs/common';
+import { FirebaseProvider } from 'src/providers/firebase.provider';
+import { LocationConverter } from './converters/location.converter';
+import { LocationsService } from './locations.service';
+import { AuthService } from '../auth/auth.service';
+import { FirebaseAuthService } from 'src/services/firebase.auth.service';
+import { UsersService } from '../users/users.service';
+import { UserConverter } from '../users/converters/user.converter';
+
+@Module({
+  providers: [LocationConverter, FirebaseProvider, LocationsService, AuthService, FirebaseAuthService, UsersService, UserConverter],
+})
+export class LocationsModule {}
+

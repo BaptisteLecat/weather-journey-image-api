@@ -5,35 +5,31 @@ import { GeneratedImage } from '../entities/generated-image.entities';
 import { User } from 'src/modules/users/entities/user.entity';
 import { GenerationConverter } from '../converters/generation.converter';
 import { UsersService } from 'src/modules/users/users.service';
+import { LocationsService } from 'src/modules/locations/locations.service';
 
 @Injectable()
 export class GenerationsService {
   static readonly collection : string = 'generations';
   constructor(@Inject(FirebaseProvider) private readonly firestoreProvider: FirebaseProvider, private generationConverter: GenerationConverter, @Inject(UsersService) private readonly userService: UsersService) {}
-  
-  async findAll() : Promise<Generation[]> {
-    const generations = await this.firestoreProvider.getFirestore().collection(GenerationsService.collection).withConverter(this.generationConverter).get();
-    return generations.docs.map(generation => this.generationConverter.fromFirestore(generation));
-  }
 
-  async findOne(id: string, userId : string) : Promise<Generation | undefined> {
-    const generation = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(GenerationsService.collection).doc(id).withConverter(this.generationConverter).get();
+  async findOne(id: string, userId : string, locationId : string) : Promise<Generation | undefined> {
+    const generation = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(LocationsService.collection).doc(locationId).collection(GenerationsService.collection).doc(id).withConverter(this.generationConverter).get();
     if (!generation.exists) {
       return undefined;
     }
     return this.generationConverter.fromFirestoreDocumentSnapshot(generation);
   }
 
-  async create(generatedImage: GeneratedImage | null, userId: string, prompt : string) : Promise<Generation> {
-    const id = this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(GenerationsService.collection).doc().id;
+  async create(generatedImage: GeneratedImage | null, userId: string, locationId : string, prompt : string) : Promise<Generation> {
+    const id = this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(LocationsService.collection).doc(locationId).collection(GenerationsService.collection).doc().id;
     const generation = new Generation(id, generatedImage, 0, prompt);
-    const generationRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(GenerationsService.collection).doc(generation.id).withConverter(this.generationConverter).set(generation);
+    const generationRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(LocationsService.collection).doc(locationId).collection(GenerationsService.collection).doc(generation.id).withConverter(this.generationConverter).set(generation);
     return generation;
   }
 
-  async update(generation: Generation, userId: string, progress: number) : Promise<Generation> {
+  async update(generation: Generation, userId: string, locationId : string, progress: number) : Promise<Generation> {
     generation.progress = progress;
-    const generationRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(GenerationsService.collection).doc(generation.id).withConverter(this.generationConverter).set(generation);
+    const generationRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(userId).collection(LocationsService.collection).doc(locationId).collection(GenerationsService.collection).doc(generation.id).withConverter(this.generationConverter).set(generation);
     return generation;
   }
 }

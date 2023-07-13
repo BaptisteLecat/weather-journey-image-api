@@ -3,7 +3,12 @@ import { LLMChain, OpenAI, PromptTemplate } from 'langchain';
 
 @Injectable()
 export class PromptGeneratorService {
-    async generatePrompt(): Promise<string> {
+    async generatePrompt(
+        imageStyle : string,
+        time : string,
+        place : string,
+        weather : string,
+    ): Promise<string> {
         const model = new OpenAI({ openAIApiKey: process.env.OPENAI_API_KEY, temperature: 0.9 });
 
         const template = `You are an expert in prompt writing. You have to write a prompt that will be used by an Image generative AI to generate image of landscape for a weather app. You have to well describe the scene like you do if the painter was blind. Because the AI can not known some place, you have to describe it.
@@ -28,7 +33,9 @@ export class PromptGeneratorService {
         const chain = new LLMChain({ llm: model, prompt: prompt });
 
 
-        return await chain.call({ image_style: "realistic, soft, and lo-fi illustration", time: "early morning (6am)", place: "Nantes", weather: "partly cloudy" }).then((res) => {
+        //{ image_style: "realistic, soft, and lo-fi illustration", time: "early morning (6am)", place: "Nantes", weather: "partly cloudy" }
+
+        return await chain.call({ image_style: imageStyle, time: time, place: place, weather: weather }).then((res) => {
             console.log(res);
             return res.text.replace(/(\r\n|\n|\r)/gm, "");
         });

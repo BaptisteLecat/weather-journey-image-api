@@ -41,6 +41,7 @@ export class GenerationController {
       throw new NotFoundException( `Location with id ${locationId} does not exist`);
     }
     this.logger.log('Generating prompt');
+    this.logger.log(`User style: ${user.style}`);
     const prompt = await this.promptGenerationService.generatePrompt(user.style, createGeneration.time, location.city, createGeneration.weather);
     this.logger.log('Starting image generation');
     generation = await this.generationService.create(null, user.id, location.id, prompt);

@@ -6,10 +6,10 @@ export class User {
   firstname: string;
   lastname: string;
   email: string;
-  styles?: string;
-  frequencies?: string;
+  styles?: string[];
+  frequencies?: string[];
 
-  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: string, frequencies?: string) {
+  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: string[], frequencies?: string[]) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;

@@ -42,7 +42,8 @@ export class GenerationController {
     }
     this.logger.log('Generating prompt');
     this.logger.log(`User style: ${user.styles}`);
-    const prompt = await this.promptGenerationService.generatePrompt(user.styles, createGeneration.time, location.city, createGeneration.weather);
+    const imageStyle = `${user.styles.join(', ')}`;
+    const prompt = await this.promptGenerationService.generatePrompt(imageStyle, createGeneration.time, location.city, createGeneration.weather);
     this.logger.log('Starting image generation');
     generation = await this.generationService.create(null, user.id, location.id, prompt);
     return generation;

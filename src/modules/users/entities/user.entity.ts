@@ -6,22 +6,24 @@ export class User {
   firstname: string;
   lastname: string;
   email: string;
-  style?: string;
+  styles?: string;
+  frequencies?: string;
 
-  public constructor(id: string, firstname: string, lastname: string, email: string, style?: string) {
+  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: string, frequencies?: string) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
-    this.style = style;
+    this.styles = styles;
+    this.frequencies = frequencies;
   }
 
   static fromFirestoreDocument(id: any, data: any): User {
-    return new User(id, data.firstname, data.lastname, data.email, data.style);
+    return new User(id, data.firstname, data.lastname, data.email, data.styles, data.frequencies);
   }
 
   static fromJson(data: any): User {
-    return new User(data.id, data.firstname, data.lastname, data.email, data.style);
+    return new User(data.id, data.firstname, data.lastname, data.email, data.styles, data.frequencies);
   }
 
   toFirestoreDocument(): any {
@@ -30,7 +32,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      style: this.style,
+      styles: this.styles,
+      frequencies: this.frequencies,
     };
   }
 
@@ -40,7 +43,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      style: this.style,
+      styles: this.styles,
+      frequencies: this.frequencies,
     };
   }
 }

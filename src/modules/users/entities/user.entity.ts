@@ -1,19 +1,22 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
+import { Style } from "src/modules/styles/entities/style.entity";
 
 export class User {
   id: string;
   firstname: string;
   lastname: string;
   email: string;
-  style?: string;
+  styles?: Style[];
+  frequencies?: string[];
 
-  public constructor(id: string, firstname: string, lastname: string, email: string, style?: string) {
+  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: Style[], frequencies?: string[]) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
-    this.style = style;
+    this.styles = styles;
+    this.frequencies = frequencies;
   }
 
   static fromFirestoreDocument(id: any, data: any): User {
@@ -30,7 +33,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      style: this.style,
+      styles: this.styles,
+      frequencies: this.frequencies,
     };
   }
 
@@ -40,7 +44,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      style: this.style,
+      styles: this.styles,
+      frequencies: this.frequencies,
     };
   }
 }

@@ -1,15 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
+import { Style } from "src/modules/styles/entities/style.entity";
 
 export class User {
   id: string;
   firstname: string;
   lastname: string;
   email: string;
-  styles?: string[];
+  styles?: Style[];
   frequencies?: string[];
 
-  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: string[], frequencies?: string[]) {
+  public constructor(id: string, firstname: string, lastname: string, email: string, styles?: Style[], frequencies?: string[]) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;

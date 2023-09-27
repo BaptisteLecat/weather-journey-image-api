@@ -6,9 +6,11 @@ import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthService } from 'src/services/firebase.auth.service';
 import { UsersService } from '../users/users.service';
 import { UserConverter } from '../users/converters/user.converter';
+import { StylesService } from '../styles/styles.service';
+import { StyleConverter } from '../styles/converters/style.converter';
 
 @Module({
-  providers: [LocationConverter, FirebaseProvider, LocationsService, AuthService, FirebaseAuthService, UsersService, UserConverter],
+  providers: [LocationConverter, FirebaseProvider, LocationsService, AuthService, FirebaseAuthService, UsersService, UserConverter, StylesService, StyleConverter],
 })
 export class LocationsModule {}
 

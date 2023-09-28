@@ -17,6 +17,9 @@ export class StylesService {
   }
 
   async findAll(id: string[]) : Promise<Style[]> {
+    if (id.length === 0) {
+      return [];
+    }
     const styles = await this.firestoreProvider.getFirestore().collection(StylesService.collection).where('id', 'in', id).withConverter(this.styleConverter).get();
     return styles.docs.map(style => this.styleConverter.fromFirestore(style));
   }

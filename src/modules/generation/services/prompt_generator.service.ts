@@ -1,17 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { LLMChain, OpenAI, PromptTemplate } from 'langchain';
+import { ChatOpenAI } from "@langchain/openai";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+
 
 @Injectable()
 export class PromptGeneratorService {
     async generatePrompt(
-        imageStyle : string,
-        time : string,
-        place : string,
-        weather : string,
+        imageStyle: string,
+        time: string,
+        place: string,
+        weather: string,
     ): Promise<string> {
-        const model = new OpenAI({ openAIApiKey: process.env.OPENAI_API_KEY, temperature: 0.9 });
+        const model = new ChatOpenAI({ openAIApiKey: process.env.OPENAI_API_KEY, temperature: 0.9});
 
-        const template = `You are an expert in prompt writing. You have to write a prompt that will be used by an Image generative AI to generate image of landscape for a weather app. You have to well describe the scene like you do if the painter was blind. Because the AI can not known some place, you have to describe it.
+        const outputParser = new StringOutputParser();
+
+        const promptTemplate = ChatPromptTemplate.fromTemplate(
+            `You are an expert in prompt writing. You have to write a prompt that will be used by an Image generative AI to generate image of landscape for a weather app. You have to well describe the scene like you do if the painter was blind. Because the AI can not known some place, you have to describe it.
     We will give you some informations on the place, the weather, the time..
     Also you have to know that we are in 2023 and it's important to give this context to the AI. You have to well describe the city and the weather.
     You have to complete with any information that can be useful for the image generation.
@@ -24,20 +30,21 @@ export class PromptGeneratorService {
     image style : {image_style}
     time : {time}
     place : {place}
-    weather informations : {weather} 
-    `;
-        const prompt = new PromptTemplate({
-            template: template,
-            inputVariables: ["image_style", "time", "place", "weather"],
+    weather informations : {weather}`
+        );
+
+        const chain = promptTemplate.pipe(model).pipe(outputParser);
+        return await chain.invoke({ image_style: imageStyle, time: time, place: place, weather: weather }).then((res) => {
+            console.log(res);
+            return res.replace(/(\r\n|\n|\r)/gm, "");
         });
-        const chain = new LLMChain({ llm: model, prompt: prompt });
 
 
         //{ image_style: "realistic, soft, and lo-fi illustration", time: "early morning (6am)", place: "Nantes", weather: "partly cloudy" }
 
-        return await chain.call({ image_style: imageStyle, time: time, place: place, weather: weather }).then((res) => {
-            console.log(res);
-            return res.text.replace(/(\r\n|\n|\r)/gm, "");
-        });
+        // return await chain.call({ image_style: imageStyle, time: time, place: place, weather: weather }).then((res) => {
+        //     console.log(res);
+        //     return res.text.replace(/(\r\n|\n|\r)/gm, "");
+        // });
     }
 }

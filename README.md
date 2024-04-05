@@ -24,7 +24,24 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This function managed the generations and location of the weather Journey Mobile App. The API can fetch the weather data from a location and generate a MidJourney Prompt with chatGPT
+
+## How it works
+
+```mermaid
+graph TB;
+    weather_journey_app[Weather Journey App] -->|User selects a location| generation_process[Initiate Generation Process]
+    generation_process -->|API request| weather_journey_image_api[Weather Journey Image API]
+    weather_journey_image_api -->|Fetch weather data & craft ChatGPT prompt| midJourneyPrompt[Create Generation Document in Firestore]
+    midJourneyPrompt -->|Document creation triggers| cloudFunction[Cloud Function]
+    cloudFunction -->|Function invokes| midJourney[MidJourney Bot]
+
+    classDef classDefault fill:#fff,stroke:#333,stroke-width:1px;
+    classDef classLink stroke:#333,stroke-width:1px;
+    class weather_journey_app,generation_process,weather_journey_image_api,midJourneyPrompt,cloudFunction,midJourney classDefault;
+    linkStyle default classLink;
+```
+
 
 ## Installation
 
@@ -81,19 +98,9 @@ gcloud run deploy weather-generation-api \
     --memory 512Mi \
     --cpu 1 \
     --port 3000 \
-    --set-env-vars "OPENAI_API_KEY=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" \
+    --set-env-vars "OPENAI_API_KEY=" \
     --service-account=weather-generation-api-runner@weatherapp-journey.iam.gserviceaccount.com
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 

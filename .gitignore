@@ -4,4 +4,4 @@ key*
 service-account.json
 dist
 node_modules
-
+*.log

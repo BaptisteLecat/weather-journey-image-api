@@ -18,7 +18,11 @@ export class FirebaseProvider {
       process.env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8080';
 
       // Initialize Firebase Admin SDK
-      admin.initializeApp();
+      admin.initializeApp(
+        {
+          projectId: "weatherapp-journey",
+        }
+      );
     }
 
     this.initialized = true;

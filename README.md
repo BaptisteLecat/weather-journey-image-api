@@ -38,6 +38,19 @@ $ npm run start:prod
 
 ## Test
 
+### Generate a JWT token with Firebase Emulator
+
+Start the Firebase Emulator and generate a JWT token for testing.
+
+Reference : https://stackoverflow.com/a/66343248/19101705
+
+```bash
+$ npm run firebase:emulator
+$ curl -X POST \  'http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=key' \
+    -H 'content-type: application/json' \
+    -d '{ "email":"alice@gmail.com", "password":"alicealice", "returnSecureToken":true }'
+
+
 ```bash
 # unit tests
 $ npm run test

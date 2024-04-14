@@ -33,8 +33,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      styles: this.styles,
-      frequencies: this.frequencies,
+      styles: this.styles ? this.styles : [],
+      frequencies: this.frequencies ? this.frequencies : [],
     };
   }
 
@@ -44,8 +44,8 @@ export class User {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      styles: this.styles,
-      frequencies: this.frequencies,
+      styles: this.styles ? this.styles : [],
+      frequencies: this.frequencies ? this.frequencies : [],
     };
   }
 }

@@ -36,26 +36,4 @@ export class UsersController {
   async getAllUsers(): Promise<User[]> {
     return await this.userService.findAll();
   }
-
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiResponse({ status: 201, description: 'The record has been successfully created.'})
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    if(!(await this.authService.userExists(createUserDto.id))) {
-      throw new NotFoundException(
-        `User with id ${createUserDto.id} does not exist.`
-      );
-    }
-
-    if(!(await this.authService.userEmailExists(createUserDto.email))) {
-      throw new NotFoundException(
-        `User with email ${createUserDto.email} does not exist.`
-      );
-    }
-    
-    let user = await this.userService.create(createUserDto);
-    return user;
-  }
 }

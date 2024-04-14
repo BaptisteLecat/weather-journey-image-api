@@ -1,6 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
-import { Style } from "src/modules/styles/entities/style.entity";
+import { Style } from "../../styles/entities/style.entity";
 
 export class User {
   id: string;

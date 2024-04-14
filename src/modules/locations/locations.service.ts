@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { FirebaseProvider } from 'src/providers/firebase.provider';
+import { FirebaseProvider } from '../../providers/firebase.provider';
 import { LocationConverter } from './converters/location.converter';
 import { Location } from './entities/location.entity';
 import { UsersService } from '../users/users.service';

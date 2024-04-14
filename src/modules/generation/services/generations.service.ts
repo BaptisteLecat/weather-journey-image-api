@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { FirebaseProvider } from 'src/providers/firebase.provider';
+import { FirebaseProvider } from '../../../providers/firebase.provider';
 import { Generation } from '../entities/generation.entity';
 import { GeneratedImage } from '../entities/generated-image.entities';
-import { User } from 'src/modules/users/entities/user.entity';
 import { GenerationConverter } from '../converters/generation.converter';
-import { UsersService } from 'src/modules/users/users.service';
-import { LocationsService } from 'src/modules/locations/locations.service';
+import { UsersService } from '../../users/users.service';
+import { LocationsService } from '../../locations/locations.service';
 
 @Injectable()
 export class GenerationsService {

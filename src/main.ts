@@ -1,10 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common/pipes';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
 import { swaggerOptions } from './config/swagger.config';
 import * as cors from 'cors';
-import * as swaggerUi from 'swagger-ui-express';
 import { config } from 'dotenv';
 import { VersioningType } from '@nestjs/common';
 import { CustomLogging } from './modules/logging/custom-logging';

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { FirebaseProvider } from 'src/providers/firebase.provider';
+import { FirebaseProvider } from '../../providers/firebase.provider';
 import { UserConverter } from './converters/user.converter';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';

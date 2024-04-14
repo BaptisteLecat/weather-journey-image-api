@@ -1,6 +1,6 @@
 import { AuthGuard } from "@nestjs/passport";
 import { BadRequestException, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
-import { API_KEY_NOT_FOUND, INVALID_API_KEY } from "src/errors/errors.constants";
+import { API_KEY_NOT_FOUND, INVALID_API_KEY } from "../../../errors/errors.constants";
 
 @Injectable()
 export class ApiKeyAuthGuard extends AuthGuard('api-key') {

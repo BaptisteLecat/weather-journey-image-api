@@ -1,10 +1,7 @@
-import { Controller, Get, Post, Body, Inject, Param, NotFoundException, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiResponse, ApiOperation, ApiParam, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { ApiTags, ApiResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
-import { ApiKeyAuthGuard } from '../auth/guard/api-key-auth.guard';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { AuthService } from '../auth/auth.service';
 
 

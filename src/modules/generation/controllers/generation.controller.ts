@@ -1,17 +1,14 @@
 import { Body, Controller, Get, Inject, NotFoundException, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { PromptGeneratorService } from '../services/prompt_generator.service';
-import { GeneratedImage } from '../entities/generated-image.entities';
-import { CustomLogging } from 'src/modules/logging/custom-logging';
+import { CustomLogging } from '../../logging/custom-logging';
 import { ApiBearerAuth, ApiBody, ApiParam } from '@nestjs/swagger';
-import { ApiKeyAuthGuard } from 'src/modules/auth/guard/api-key-auth.guard';
-import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { FirebaseThrottlerGuard } from 'src/modules/auth/guard/firebase-throttler.guard';
+import { ApiKeyAuthGuard } from '../../auth/guard/api-key-auth.guard';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Generation } from '../entities/generation.entity';
 import { GenerationsService } from '../services/generations.service';
-import { parse } from 'path';
-import { LocationsService } from 'src/modules/locations/locations.service';
+import { LocationsService } from '../../locations/locations.service';
 import { CreateGenerationDto } from '../dto/create-generation.dto';
-import { UsersService } from 'src/modules/users/users.service';
+import { UsersService } from '../../users/users.service';
 
 @UseGuards(ApiKeyAuthGuard, JwtAuthGuard)
 @ApiBearerAuth('JWT-auth')

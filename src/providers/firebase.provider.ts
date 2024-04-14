@@ -13,12 +13,14 @@ export class FirebaseProvider {
     if (process.env.NODE_ENV == 'production') {
       admin.initializeApp();
     } else {
-      // Import the service account key JSON file
-      const service_account = require(`../../${this.configService.get<string>('SERVICE_ACCOUNT_KEY_FILE')}`);
+      // Set the Firebase Auth emulator host : https://stackoverflow.com/a/77929815/19101705
+      process.env['FIREBASE_AUTH_EMULATOR_HOST'] = 'localhost:9099';
+      process.env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8080';
+
       // Initialize Firebase Admin SDK
       admin.initializeApp(
         {
-          credential: admin.credential.cert(service_account as admin.ServiceAccount),
+          projectId: "weatherapp-journey",
         }
       );
     }
@@ -32,6 +34,7 @@ export class FirebaseProvider {
         this.initialize();
       }
     }
+    
     return admin.firestore();
   }
 

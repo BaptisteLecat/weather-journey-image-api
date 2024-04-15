@@ -28,10 +28,4 @@ export class UsersService {
     }
     return userObject;
   }
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User(createUserDto.id, createUserDto.firstname, createUserDto.lastname, createUserDto.email);
-    const userRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(user.id).withConverter(this.userConverter).set(user);
-    return user;
-  }
 }

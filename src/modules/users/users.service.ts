@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { FirebaseProvider } from 'src/providers/firebase.provider';
+import { FirebaseProvider } from '../../providers/firebase.provider';
 import { UserConverter } from './converters/user.converter';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -27,11 +27,5 @@ export class UsersService {
       userObject.styles = styles;
     }
     return userObject;
-  }
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User(createUserDto.id, createUserDto.firstname, createUserDto.lastname, createUserDto.email);
-    const userRef = await this.firestoreProvider.getFirestore().collection(UsersService.collection).doc(user.id).withConverter(this.userConverter).set(user);
-    return user;
   }
 }

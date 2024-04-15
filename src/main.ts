@@ -1,10 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common/pipes';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
 import { swaggerOptions } from './config/swagger.config';
 import * as cors from 'cors';
-import * as swaggerUi from 'swagger-ui-express';
 import { config } from 'dotenv';
 import { VersioningType } from '@nestjs/common';
 import { CustomLogging } from './modules/logging/custom-logging';
@@ -26,6 +25,6 @@ async function bootstrap() {
   });
   const document = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('docs', app, document);
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

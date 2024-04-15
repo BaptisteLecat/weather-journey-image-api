@@ -1,9 +1,7 @@
 import { AuthGuard } from "@nestjs/passport";
 import { BadRequestException, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
-import { AuthService } from "../auth.service";
 import { AuthUser } from "../entity/auth-user.entity";
-import { INVALID_TOKEN, TOKEN_NOT_FOUND } from "src/errors/errors.constants";
-import { auth } from "firebase-admin";
+import { INVALID_TOKEN, TOKEN_NOT_FOUND } from "../../../errors/errors.constants";
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

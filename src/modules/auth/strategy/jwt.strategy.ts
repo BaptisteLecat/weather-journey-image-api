@@ -2,7 +2,7 @@ import { BadRequestException, ExecutionContext, Injectable, UnauthorizedExceptio
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-firebase-jwt";
 import { AuthService } from "../auth.service";
-import { EXPIRED_TOKEN, INVALID_TOKEN, TOKEN_MALFORMED, TOKEN_NOT_FOUND } from "src/errors/errors.constants";
+import { EXPIRED_TOKEN, INVALID_TOKEN, TOKEN_MALFORMED, TOKEN_NOT_FOUND } from "../../../errors/errors.constants";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt'){

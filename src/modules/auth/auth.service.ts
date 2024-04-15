@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { FirebaseAuthService } from 'src/services/firebase.auth.service';
+import { FirebaseAuthService } from '../../services/firebase.auth.service';
 import { AuthUser } from './entity/auth-user.entity';
 
 @Injectable()

@@ -1,10 +1,7 @@
-import { Controller, Get, Post, Body, Inject, Param, NotFoundException, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiResponse, ApiOperation, ApiParam, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { ApiTags, ApiResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
-import { ApiKeyAuthGuard } from '../auth/guard/api-key-auth.guard';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { AuthService } from '../auth/auth.service';
 
 
@@ -35,27 +32,5 @@ export class UsersController {
   @Get()
   async getAllUsers(): Promise<User[]> {
     return await this.userService.findAll();
-  }
-
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiResponse({ status: 201, description: 'The record has been successfully created.'})
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    if(!(await this.authService.userExists(createUserDto.id))) {
-      throw new NotFoundException(
-        `User with id ${createUserDto.id} does not exist.`
-      );
-    }
-
-    if(!(await this.authService.userEmailExists(createUserDto.email))) {
-      throw new NotFoundException(
-        `User with email ${createUserDto.email} does not exist.`
-      );
-    }
-    
-    let user = await this.userService.create(createUserDto);
-    return user;
   }
 }

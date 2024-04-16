@@ -42,7 +42,6 @@ jobs:
 
       - name: Run tests
         run: npm run firebase:emulator:ci
-        shell: bash
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.0.1

@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "firebase:emulator": "firebase emulators:start --import ./import",
-    "firebase:emulator:ci": "firebase emulators:exec \"npm run test:cov\" --import ./import",
+    "firebase:emulator:ci": "firebase emulators:exec \"jest --coverage --no-cache --passWithNoTests\" --import ./import",
     "firebase:emulator:export": "firebase emulators:start --import ./import --export-on-exit ./import"
   },
   "dependencies": {

@@ -29,6 +29,14 @@ jobs:
           node-version: "20.x"
       - run: npm install
 
+      - name: Set .env file
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          echo "DISCORD_SERVER_ID=${{ secrets.DISCORD_SERVER_ID }}" >> .env
+          echo "DISCORD_CHANNEL_ID=${{ secrets.DISCORD_CHANNEL_ID }}" >> .env
+          echo "DISCORD_SALAI_TOKEN=${{ secrets.DISCORD_SALAI_TOKEN }}" >> .env
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+
       - name: Build application
         run: npm run build
 

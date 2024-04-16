@@ -41,7 +41,7 @@ jobs:
           GCP_SA_KEY: ${{ secrets.FIREBASE_SA_KEY }}
 
       - name: Run tests
-        run: npm run test:cov
+        run: npm run firebase:emulator:ci
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.0.1

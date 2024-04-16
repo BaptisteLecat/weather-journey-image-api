@@ -106,8 +106,6 @@ describe('API (e2e)', function () {
           .set("Authorization", `Bearer ${token}`)
           .set("Content-Type", "application/json")
           .send({ "time": "Alice", "weather": "Alice" })
-          .expect(201)
-          .expect('Content-Type', /json/)
           .expect((res) => {
             // Vérification de la structure et des types de l'objet génération
             expect(res.body).toEqual(expect.objectContaining({

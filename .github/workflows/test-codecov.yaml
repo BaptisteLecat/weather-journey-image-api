@@ -1,6 +1,9 @@
 name: Testing and update Codecov
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
     branches:

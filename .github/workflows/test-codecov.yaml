@@ -1,15 +1,17 @@
 name: Testing and update Codecov
 
 on:
-  push:
-    branches:
-      - "*"
   pull_request:
+    types: [opened, synchronize, reopened]
     branches:
-      - "*"
+      - main
+  pull_request_review:
+    types: [submitted]
+    branches:
+      - main
 
 jobs:
-  update-codecov:
+  test-e2e:
     environment: prod
     runs-on: ubuntu-latest
     steps:

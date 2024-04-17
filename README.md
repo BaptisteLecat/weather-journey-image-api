@@ -46,9 +46,6 @@ Start the Firebase Emulator and generate a JWT token for testing.
 
 Reference : https://stackoverflow.com/a/66343248/19101705
 
-### Code Coverage
-
-https://codecov.io/gh/BaptisteLecat/weather-journey-image-api/graphs/sunburst.svg?token=JBOHVOITTC
 
 ```bash
 $ npm run firebase:emulator

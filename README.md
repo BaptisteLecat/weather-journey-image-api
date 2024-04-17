@@ -2,6 +2,8 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
+[![codecov](https://codecov.io/gh/BaptisteLecat/weather-journey-image-api/graph/badge.svg?token=JBOHVOITTC)](https://codecov.io/gh/BaptisteLecat/weather-journey-image-api)
+
 ## Description
 
 Weather Journey Image API is a RESTful API that generates images based on the weather conditions of a location. It uses the OpenAI API to generate images based on the weather conditions of a location. The API is built using NestJS and is deployed on Google Cloud Run.
@@ -43,6 +45,10 @@ $ npm run start:prod
 Start the Firebase Emulator and generate a JWT token for testing.
 
 Reference : https://stackoverflow.com/a/66343248/19101705
+
+### Code Coverage
+
+https://codecov.io/gh/BaptisteLecat/weather-journey-image-api/graphs/sunburst.svg?token=JBOHVOITTC
 
 ```bash
 $ npm run firebase:emulator

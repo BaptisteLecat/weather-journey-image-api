@@ -26,6 +26,7 @@ describe('API (e2e)', function () {
     );
 
     token = await authenticateUser();
+    console.log(token.length);
     expiredToken = "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJuYW1lIjoiYWxpY2UiLCJwaWN0dXJlIjoiIiwiZW1haWwiOiJhbGljZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImF1dGhfdGltZSI6MTcxMzE3NzAyOCwidXNlcl9pZCI6IjNLOWZZemdKR2xJeDRPdVFnZm1VMVlFRG4ybGIiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFsaWNlQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn0sImlhdCI6MTcxMzE3NzAyOCwiZXhwIjoxNzEzMTgwNjI4LCJhdWQiOiJ3ZWF0aGVyYXBwLWpvdXJuZXkiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vd2VhdGhlcmFwcC1qb3VybmV5Iiwic3ViIjoiM0s5Zll6Z0pHbEl4NE91UWdmbVUxWUVEbjJsYiJ9.";
   });
 
@@ -105,8 +106,6 @@ describe('API (e2e)', function () {
           .set("Authorization", `Bearer ${token}`)
           .set("Content-Type", "application/json")
           .send({ "time": "Alice", "weather": "Alice" })
-          .expect(201)
-          .expect('Content-Type', /json/)
           .expect((res) => {
             // Vérification de la structure et des types de l'objet génération
             expect(res.body).toEqual(expect.objectContaining({

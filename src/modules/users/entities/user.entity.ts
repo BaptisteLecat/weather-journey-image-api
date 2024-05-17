@@ -127,6 +127,16 @@ export class User {
   canGenerateImage(): boolean {
     if (this.lastGenerationsAsc.length < 3) {
       return true;
+    } else {
+        const lastGenerationDate = this.lastGenerationsAsc[0].insertedTimestamp.toDate();
+        const currentDate = new Date();
+        if (
+            lastGenerationDate.getDate() === currentDate.getDate() &&
+            lastGenerationDate.getMonth() === currentDate.getMonth()
+        ) {
+            return false;
+        } else {
+            return true;
     }
   }
 }
